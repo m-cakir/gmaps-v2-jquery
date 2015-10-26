@@ -1,0 +1,111 @@
+<html>
+<head>
+    
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Google Maps v2 Search Address & Get Lat-Long Points</title>
+    
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    
+<style>
+    .container {
+        margin-top: 40px;
+    }
+	.gmap {
+		width: 100%;
+		height: 400px;
+	}
+</style>
+
+</head>
+<body>
+
+    <div class="container">
+        
+        <form id="find-address-form" method="post" action="" class="form-horizontal row-border" autocomplete="off">
+        
+            <div class="form-group">
+
+                <div class="col-md-11">
+
+                    <input type="text" id="address" name="address" class="form-control" placeholder="Enter address" />
+
+                </div>
+
+                <div class="col-md-1">
+
+                    <input type="submit" class="btn btn-primary" value="Search"/>
+
+                </div>
+
+            </div>
+        
+            <div class="form-group">
+
+                <div class="col-md-6">
+
+                    <h1>Latitude: <span id="lat"></span></h1>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <h1>Longitude: <span id="lng"></span></h1> 
+
+                </div>
+
+            </div>
+                
+        </form>
+        
+        <div class="row">
+    
+            <div class="col-md-12">
+
+                <div id="gmap" class="gmap"></div>
+
+            </div>
+        
+        </div>
+    
+    </div>
+    
+
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://maps.google.com/maps?file=api&amp;v=2"></script><!-- &amp;key=APIKEY -->
+<script src="js/jquery.gmap.js"></script>
+    
+<script type="text/javascript">
+    $(document).ready(function(){
+    
+        $('#gmap').gmap({
+            point : {
+                lat : 41.00824,
+                lng : 28.97836
+            },
+            
+            onChange : function(point){
+                $('#lat').text(point.lat().toFixed(5));
+                $('#lng').text(point.lng().toFixed(5)); 
+            }
+        });
+        
+        
+        $('#find-address-form').on('submit', function(){
+            
+            $('#gmap').gmap('findAddress', $('#address').val());
+            
+            return false;
+        });
+        
+    });
+
+</script>
+
+</body>
+</html>
+
+
